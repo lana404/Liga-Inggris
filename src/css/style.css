@@ -1,0 +1,38 @@
+.align-center {
+  text-align: center;
+}
+
+#content {
+  margin: 1em auto;
+}
+
+div.vs {
+  text-align: center;
+  font-weight: bold;
+}
+
+klasemen-page>div>div {
+  overflow-x: scroll;
+}
+
+klasemen-page img {
+  max-width: 2em;
+}
+
+#bookmark-bt {
+  float: right;
+}
+
+teamdetail-page .detail-logo {
+  max-width: 16em;
+}
+
+teamdetail-page .detail-logo img {
+  max-height: 13em;
+}
+
+@media only screen and (max-width: 600px) {
+  teamdetail-page h5.detail-name {
+    margin-top: 25%;
+  }
+}
