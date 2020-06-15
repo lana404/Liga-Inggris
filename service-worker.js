@@ -8,6 +8,7 @@ const url = [
   "/src/img/144/icon.png",
   "/src/img/480/icon.png",
   "/src/img/24/bookmark.svg",
+  "/src/img/24/bookmark-border.svg",
   "/favicon.ico",
   "/manifest.json"
 ];
@@ -70,4 +71,29 @@ self.addEventListener('activate', event => {
       );
     })
   );
+})
+
+// Notification
+self.addEventListener('push', event => {
+  let body;
+
+  if (event.data) {
+    body = event.data.text();
+  } else {
+    body = 'Push message without payload'
+  }
+
+  const option = {
+    body: body,
+    icon: 'src/img/144/icon.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification('Push Notifikasi', option)
+  )
 })

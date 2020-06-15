@@ -13,21 +13,23 @@ function getAll(functName) {
     if ("caches" in window) {
       caches.match(`${base_url}competitions/${id_liga}/standings`)
         .then( response => {
-          return response.json();
+          if (response) {
+            response.json()
+              .then( responseJson => {
+                return responseJson.standings;
+              })
+              .then( responseStandings => {
+                return responseStandings[0].table;
+              })
+              .then( responseTable => {
+                const contentArea = document.querySelector('klasemen-page');
+                contentArea.datas = responseTable;
+              })
+          }
         })
-        .then( responseJson => {
-          return responseJson.standings;
+        .catch( err => {
+          console.log(`Error : ${err}`);
         })
-        .then( responseStandings => {
-          return responseStandings[0].table;
-        })
-        .then( responseTable => {
-          const contentArea = document.querySelector('klasemen-page');
-          contentArea.datas = responseTable;
-        })
-        .catch( error => {
-          console.log(`Error ${error}`);
-        });
     }
 
     // Fetch Data from API
@@ -50,9 +52,9 @@ function getAll(functName) {
         const contentArea = document.querySelector('klasemen-page');
         contentArea.datas = responseTable;
       })
-      .catch( error => {
-        console.log(`Error ${error}`);
-      });
+      .catch( err => {
+        console.log(`Error : ${err}`);
+      })
   };
 
   const match = () => {
@@ -60,18 +62,20 @@ function getAll(functName) {
     if ("caches" in window) {
       caches.match(`${base_url}competitions/${id_liga}/matches`)
         .then( response => {
-          return response.json();
+          if (response) {
+            response.json()
+              .then( responseJson => {
+                return responseJson.matches;
+              })
+              .then( responseMatches => {
+                const contentArea = document.querySelector('match-page');
+                contentArea.data = responseMatches;
+              })
+          }
         })
-        .then( responseJson => {
-          return responseJson.matches;
+        .catch( err => {
+          console.log(`Error : ${err}`);
         })
-        .then( responseMatches => {
-          const contentArea = document.querySelector('match-page');
-          contentArea.data = responseMatches;
-        })
-        .catch( error => {
-          console.log(`Error ${error}`);
-        });
     }
 
     // Fetch Data from API
@@ -91,9 +95,9 @@ function getAll(functName) {
         const contentArea = document.querySelector('match-page');
         contentArea.data = responseMatches;
       })
-      .catch( error => {
-        console.log(`Error ${error}`);
-      });
+      .catch( err => {
+        console.log(`Error : ${err}`);
+      })
   };
 
   const home = () => {
@@ -105,6 +109,9 @@ function getAll(functName) {
       .then( team => {
         const contentArea = document.querySelector('favorite-page');
         contentArea.data = team;
+      })
+      .catch( err => {
+        console.log(`Error : ${err}`);
       })
   }
 

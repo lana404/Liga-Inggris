@@ -12,6 +12,7 @@ class KlasemenPage extends  HTMLElement{
   }
 
   table() {
+    console.log(this._datas);
     let page = `
         <div class="container">
           <div class="row">

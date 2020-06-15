@@ -26,6 +26,8 @@ function saveFavorite(team) {
     })
     .then( () => {
       console.log("Berhasil Menyimpan");
+      location.replace('#favorite');
+      location.reload();
     })
     .catch( error => {
       console.log(`Gagal Menyimpan ${error}`);
@@ -62,4 +64,24 @@ function getByIdSaved(id) {
   });
 }
 
-export {saveFavorite, getAllSaved, getByIdSaved}
+function deleteFavorite(id) {
+  return new Promise( (resolve, reject) => {
+    dbPromised
+      .then( db => {
+        var tx = db.transaction("favorite", "readwrite");
+        var store = tx.objectStore("favorite");
+
+        return store.delete(parseInt(id));
+      })
+      .then( team => {
+        resolve(team);
+        console.log("Berhasil Menghapus");
+        location.reload();
+      })
+      .catch( error => {
+        console.log(`Gagal Menghapus ${error}`);
+      });
+  });
+}
+
+export {saveFavorite, getAllSaved, getByIdSaved, deleteFavorite}

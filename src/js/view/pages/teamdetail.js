@@ -1,4 +1,4 @@
-import {saveFavorite} from '../../db/db.js';
+import {saveFavorite, deleteFavorite} from '../../db/db.js';
 
 class TeamDetailPage extends HTMLElement {
   constructor() {
@@ -13,8 +13,15 @@ class TeamDetailPage extends HTMLElement {
 
   render() {
     console.log(this._data);
-    
-    let bookmarkImg = 'src/img/24/bookmark-border.svg';
+
+    let locationHash = location.hash.substr(1);
+    let bookmarkImg = '';
+    if (locationHash === 'favorite') {
+      bookmarkImg = 'src/img/24/bookmark.svg';
+    } else {
+      bookmarkImg = 'src/img/24/bookmark-border.svg';
+    }
+
     this.innerHTML = `
             <div class="container">
               <div class="row">
@@ -50,7 +57,12 @@ class TeamDetailPage extends HTMLElement {
   bookmarkTeam() {
     // Action Saved To Bookmark
     document.getElementById('bookmark-bt').addEventListener('click', event => {
+      let locationHash = location.hash.substr(1);
+      if (locationHash === 'favorite') {
+        deleteFavorite(this._data.id);
+      } else {
         saveFavorite(this._data);
+      }
     });
   }
 }
