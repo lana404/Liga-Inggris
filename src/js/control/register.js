@@ -6,6 +6,7 @@ function register() {
           .register('./service-worker.js')
           .then( () => {
             console.log('Pendaftaran Service Worker berhasil');
+            notifikasi();
           })
           .catch( () => {
             console.log('Pendaftaran Service Worker Gagal');

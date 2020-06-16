@@ -12,7 +12,6 @@ import getAll from './api/get-all.js';
 document.addEventListener('DOMContentLoaded',() => {
   // Controll -> Registrasi SW
   register();
-  notifikasi();
 
   // View
   let page = location.hash.substr(1);

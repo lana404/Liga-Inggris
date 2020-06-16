@@ -2,15 +2,15 @@ const CACHE_NAME = "footbal-info";
 
 // Daftar resource yang akan disimpan
 const url = [
-  "/",
-  "/index.html",
-  "/bundle.js",
-  "/src/img/144/icon.png",
-  "/src/img/480/icon.png",
-  "/src/img/24/bookmark.svg",
-  "/src/img/24/bookmark-border.svg",
-  "/favicon.ico",
-  "/manifest.json"
+  "./",
+  "./index.html",
+  "./bundle.js",
+  "./src/img/144/icon.png",
+  "./src/img/480/icon.png",
+  "./src/img/24/bookmark.svg",
+  "./src/img/24/bookmark-border.svg",
+  "./favicon.ico",
+  "./manifest.json"
 ];
 
 // Menyimpan resource ke cache
