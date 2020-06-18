@@ -17,5 +17,5 @@ Buka file sw.js, berkas yang dicache tertulis pada function cachingProses()
 
 Diterapkan pada Tim Favorit.
 
-Save : Klasemen -> Select Team -> Add
-Delete : Tim Favori -> Select Team -> Delete
+1. Save : Klasemen -> Select Team -> Add
+2. Delete : Tim Favori -> Select Team -> Delete
