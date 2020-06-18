@@ -2,7 +2,7 @@
     "name": "Football Info",
     "short_name": "footaball-info",
     "description": "Info seputar Liga Inggris",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#000000",
