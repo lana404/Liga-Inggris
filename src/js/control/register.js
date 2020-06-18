@@ -1,12 +1,11 @@
 function register() {
   // Cek Service Worker
     if ("serviceWorker" in navigator) {
-      window.addEventListener('load', () => {
+      window.addEventListener('load', event => {
         navigator.serviceWorker
-          .register('./service-worker.js')
-          .then( () => {
-            console.log('Pendaftaran Service Worker berhasil');
-            notifikasi();
+          .register('./sw.js')
+          .then( reg => {
+            swInstalation(reg);
           })
           .catch( () => {
             console.log('Pendaftaran Service Worker Gagal');
@@ -17,6 +16,25 @@ function register() {
     }
 }
 
+function swInstalation(reg) {
+  let swState;
+  if (reg.installing) {
+    swState = reg.installing;
+  } else if (reg.waiting) {
+    swState = reg.waiting;
+  } else if (reg.active) {
+    swState = reg.active;
+  }
+
+  if (swState) {
+    swState.addEventListener('statechange', event => {
+      console.log(event.target.state + ' service worker');
+      if (event.target.state === 'activating') {
+        notifikasi(reg);
+      }
+    });
+  }
+}
 
 function urlBase64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -31,39 +49,38 @@ function urlBase64ToUint8Array(base64String) {
     return outputArray;
 }
 
-function notifikasi() {
+function notifikasi(reg) {
   if ("Notification" in window) {
     Notification.requestPermission()
       .then( result => {
         if (result === "denied") {
-          console.log("Fitur notifikasi tidak diijinkan.");
+          console.log("Notifikasi tidak diizinkan oleh pengguna");
           return;
         } else if (result === "default") {
-          console.error("Pengguna menutup kotak dialog permintaan ijin.");
+          console.error("Kotak dialog ditutup");
           return;
         }
 
         if ('PushManager' in window) {
-          navigator.serviceWorker.getRegistration()
-            .then( reg => {
-              reg.pushManager.subscribe({
-                  userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array('BE9NJ8WbfXUSvcBtbiqZ2KnBxgQtujI2lXFdlATPGpWucw05l3Y-LTrs6j9T8qGp7qXXIWb2UFLSRRGPNsyI61M')
-              })
-                .then( subs => {
-                  console.log('Berhasil melakukan subscribe dengan endpoint: ', subs.endpoint);
-                  console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(subs.getKey('p256dh')))));
-                  console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(subs.getKey('auth')))));
-                })
-                .catch( err => {
-                  console.error('Tidak dapat melakukan subscribe ', err.message);
-                });
+          reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array('BE9NJ8WbfXUSvcBtbiqZ2KnBxgQtujI2lXFdlATPGpWucw05l3Y-LTrs6j9T8qGp7qXXIWb2UFLSRRGPNsyI61M')
+          })
+            .then( subs => {
+              console.log('Berhasil melakukan subscribe dengan');
+              console.log('endpoint: ', subs.endpoint);
+              console.log('p256dh key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(subs.getKey('p256dh')))));
+              console.log('auth key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(subs.getKey('auth')))));
             })
+            .catch( err => {
+              console.error('Gagal melakukan subscribe ', err.message);
+            });
         }
       });
   } else {
-    console.error("Browser tidak mendukung notifikasi.");
+    console.error("Browser tidak mendukung fitur notifikasi.");
   }
 }
 
-export {register, notifikasi};
+
+export default register;

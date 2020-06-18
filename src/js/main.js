@@ -5,7 +5,7 @@ import 'materialize-css/dist/js/materialize.min.js';
 import './view/nav-bar.js';
 import './view/app-area.js';
 //Controll
-import {register, notifikasi} from './control/register.js';
+import register from './control/register.js';
 // DB
 import getAll from './api/get-all.js';
 

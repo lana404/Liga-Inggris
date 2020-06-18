@@ -25,9 +25,16 @@ function saveFavorite(team) {
       return tx.complete;
     })
     .then( () => {
-      console.log("Berhasil Menyimpan");
-      location.replace('#favorite');
-      location.reload();
+      M.toast({
+        html: `
+          <span> Berhasil Menyimpan </span>
+        `,
+        completeCallback: () => {
+          window.location.replace('#favorite');
+          location.reload();
+        },
+        displayLength:1000
+      });
     })
     .catch( error => {
       console.log(`Gagal Menyimpan ${error}`);
@@ -74,9 +81,14 @@ function deleteFavorite(id) {
         return store.delete(parseInt(id));
       })
       .then( team => {
+        M.toast({
+          html: `Berhasil Menghapus`,
+          completeCallback: () => {
+            location.reload();
+          },
+          displayLength:1000
+        });
         resolve(team);
-        console.log("Berhasil Menghapus");
-        location.reload();
       })
       .catch( error => {
         console.log(`Gagal Menghapus ${error}`);

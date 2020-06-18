@@ -4,16 +4,16 @@
     "description": "Info seputar Liga Inggris",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#ff4081",
-    "theme_color": "#ff4081",
+    "background_color": "#000000",
+    "theme_color": "#000000",
     "icons": [
         {
-            "src": "src/img/144/icon.png",
+            "src": "./src/img/144/icon.png",
             "sizes": "144x144",
             "type": "image/png"
         },
         {
-            "src": "src/img/480/icon.png",
+            "src": "./src/img/480/icon.png",
             "sizes": "480x480",
             "type": "image/png"
         }

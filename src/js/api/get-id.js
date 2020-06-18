@@ -2,11 +2,11 @@ import '../view/pages/teamdetail.js';
 import {getByIdSaved} from '../db/db.js';
 
 function getId(funcName, idData) {
-  const base_url = 'https://api.football-data.org/v2/';
+  const baseUrl = 'https://api.football-data.org/v2/';
 
   const teamdetail = id => {
     if ("caches" in window) {
-      caches.match(`${base_url}teams/${id}`)
+      caches.match(`${baseUrl}teams/${id}`)
         .then( response => {
           if (response) {
             response.json()
@@ -21,7 +21,7 @@ function getId(funcName, idData) {
         })
     }
 
-    fetch(`${base_url}teams/${id}`, {
+    fetch(`${baseUrl}teams/${id}`, {
       method: 'GET',
       headers: {
         'X-Auth-Token': '91ce623ecb4c4a639558576e323fbcd2'

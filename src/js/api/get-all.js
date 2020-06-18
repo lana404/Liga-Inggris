@@ -5,13 +5,13 @@ import '../view/pages/favorite.js';
 import {getAllSaved} from '../db/db.js';
 
 function getAll(functName) {
-  const base_url = 'https://api.football-data.org/v2/';
-  const id_liga = '2021';
+  const baseUrl = 'https://api.football-data.org/v2/';
+  const idLiga = '2021';
 
   const klasemen = () => {
     // Fetch Data from Cache
     if ("caches" in window) {
-      caches.match(`${base_url}competitions/${id_liga}/standings`)
+      caches.match(`${baseUrl}competitions/${idLiga}/standings`)
         .then( response => {
           if (response) {
             response.json()
@@ -33,7 +33,7 @@ function getAll(functName) {
     }
 
     // Fetch Data from API
-    fetch(`${base_url}competitions/${id_liga}/standings`, {
+    fetch(`${baseUrl}competitions/${idLiga}/standings`, {
       method: 'GET',
       headers: {
         'X-Auth-Token': '91ce623ecb4c4a639558576e323fbcd2'
@@ -60,7 +60,7 @@ function getAll(functName) {
   const match = () => {
     // Fetch Data from Cache
     if ("caches" in window) {
-      caches.match(`${base_url}competitions/${id_liga}/matches`)
+      caches.match(`${baseUrl}competitions/${idLiga}/matches`)
         .then( response => {
           if (response) {
             response.json()
@@ -79,7 +79,7 @@ function getAll(functName) {
     }
 
     // Fetch Data from API
-    fetch(`${base_url}competitions/${id_liga}/matches`, {
+    fetch(`${baseUrl}competitions/${idLiga}/matches`, {
       method: 'GET',
       headers: {
         'X-Auth-Token': '91ce623ecb4c4a639558576e323fbcd2'
